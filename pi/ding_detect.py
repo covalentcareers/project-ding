@@ -3,6 +3,7 @@
 # Benjamin Chodroff benjamin.chodroff@gmail.com
 
 import pyaudio
+import socket
 from numpy import zeros, linspace, short, fromstring, hstack, transpose, log
 from scipy import fft
 from time import sleep
@@ -10,16 +11,16 @@ from time import sleep
 #Volume Sensitivity, 0.05: Extremely Sensitive, may give false alarms
 #             0.1: Probably Ideal volume
 #             1: Poorly sensitive, will only go off for relatively loud
-SENSITIVITY = 0.4
+SENSITIVITY = 1
 
 # Alarm frequency (Hz) to detect (Set frequencyoutput to True if you need to detect what frequency to use)
-TONE = 8500
+TONE = 5300
 
 #Bandwidth for detection (i.e., detect frequencies +- within this margin of error of the TONE)
 BANDWIDTH = 20
 
 #How many 46ms blips before we declare a beep? (Set frequencyoutput to True if you need to determine how many blips are found, then subtract some)
-beeplength = 4
+beeplength = 2
 
 # How many beeps before we declare an alarm? (Avoids false alarms)
 alarmlength = 2
@@ -39,12 +40,17 @@ frequencyoutput = False
 
 # Audio Sampler
 NUM_SAMPLES = 2048
-SAMPLING_RATE = 44100
+SAMPLING_RATE = 48000
 pa = pyaudio.PyAudio()
 _stream = pa.open(format=pyaudio.paInt16,
                   channels=1, rate=SAMPLING_RATE,
-                  input=True,
+                  input=True, input_device_index=0,
                   frames_per_buffer=NUM_SAMPLES)
+
+# Socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+SOCK_IP = '192.168.1.25'
+SOCK_PORT = 2390
 
 print("Alarm detector working. Press CTRL-C to quit.")
 
@@ -90,6 +96,7 @@ while True:
                 clearcount = 0
                 alarm = True
                 print("Ding!")
+                sock.sendto(bytes('DING', 'utf-8'), (SOCK_IP, SOCK_PORT))
                 beepcount = 0
     else:
         if frequencyoutput:

@@ -3,3 +3,6 @@
 
 # Secrets
 arduino_secrets.h
+
+# Misc
+.as
