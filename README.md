@@ -2,6 +2,9 @@
 
 ## (Design Irritating New Gadget)
 
+### How to use
+1) To manually ding, run `echo -n "DING" >/dev/udp/100.76.100.88/2390`
+
 ### Resources
 1) https://learn.robotgeek.com/demo-code/124-arduino-solenoid-tutorial-button-demo.html
 2) https://www.youtube.com/watch?v=NuVxBqTuAL4

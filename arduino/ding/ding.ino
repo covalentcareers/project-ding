@@ -28,10 +28,10 @@ char  ReplyBuffer[] = "acknowledged";       // a string to send back
 
 // Ding variables
 int dingPin = 13; // pin that triggers the relay to power the solenoid
-int numberOfDings = 3;
-int triggerDelay = 50; // delay of solenoid being triggered while dinging
+int numberOfDings = 5;
+int triggerDelay = 100; // delay of solenoid being triggered while dinging
 unsigned long lastDingTime = 0; // the last time a ding was triggered
-long dingDelay = 60000; // ding cooldown (1 minute)
+long dingDelay = 100; // ding cooldown (1 minute)
 
 
 WiFiUDP Udp;
@@ -67,7 +67,7 @@ void setup() {
     status = WiFi.begin(ssid, pass);
 
     // wait 10 seconds for connection:
-    delay(3000);
+    delay(10000);
   }
   Serial.println("Connected to wifi");
   printWifiStatus();
