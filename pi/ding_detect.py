@@ -49,7 +49,7 @@ _stream = pa.open(format=pyaudio.paInt16,
 
 # Socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-SOCK_IP = '192.168.1.25'
+SOCK_IP = '100.76.100.88'
 SOCK_PORT = 2390
 
 print("Alarm detector working. Press CTRL-C to quit.")
